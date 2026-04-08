@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Odisseia dos Lordes Dragões</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            /* Adicionando a imagem de fundo */
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("imagens/CAPA-Odisseia.png");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-color: #1a1a1a;
+            color: #e0d9c1;
+            display: flex;
+            justify-content: center;
+            padding: 40px;
+            margin: 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            /* Fundo levemente transparente para ver a imagem atrás */
+            background: rgba(42, 42, 42, 0.85);
+            padding: 40px;
+            border: 2px solid #c5a059;
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px); /* Efeito de desfoque no fundo */
+        }
+
+        h1 {
+            text-align: center;
+            color: #c5a059;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            border-bottom: 2px double #c5a059;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        /* Estilo das Pastas e Menus */
+        ul { list-style: none; padding-left: 20px; }
+        
+        .folder-title {
+            font-size: 1.5em;
+            color: #f1e5ac;
+            margin-top: 30px;
+            cursor: default;
+            font-variant: small-caps;
+            border-left: 3px solid #c5a059;
+            padding-left: 15px;
+        }
+
+        .subfolder-title {
+            font-size: 1.2em;
+            color: #c5a059;
+            margin-top: 20px;
+            margin-left: 20px;
+            font-style: italic;
+        }
+        .subfolder-title::before { content: '📍 '; }
+
+        /* Links das Cenas */
+        .scene-link {
+            margin-left: 45px;
+            margin-top: 8px;
+            display: block;
+            text-decoration: none;
+            color: #bfa37e;
+            transition: all 0.3s ease;
+            font-size: 1.05em;
+        }
+
+        .scene-link:hover {
+            color: #ffffff;
+            padding-left: 15px;
+            text-shadow: 0 0 8px #c5a059;
+        }
+        
+        .scene-link::before { 
+            content: '👁️ '; 
+            font-size: 0.9em; 
+            opacity: 0.7;
+        }
+
+        /* Ajuste para o item de Juramento que estava solto */
+        .juramento-item {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Odisseia dos Lordes Dragões</h1>
+
+    <ul>
+        <li class="folder-title">Os Grandes Trabalhos
+            <ul>
+                <li class="subfolder-title">A Cidade de Estória
+                    <a class="scene-link" href="estoria_cena0.html">Estrada para Estória</a>
+                    <a class="scene-link" href="estoria_cena1.html">A Ágora</a>
+                    <a class="scene-link" href="estoria_cena2.html">O Santuário do Dragão</a>
+                    <a class="scene-link" href="estoria_cena3.html">O Dente do Dragão</a>
+                    <a class="scene-link" href="estoria_cena4.html">O Trono de Pythor</a>
+                    <a class="scene-link" href="estoria_cena5.html">O Salão de Volkan</a>
+                    <a class="scene-link" href="estoria_cena6.html">A Rocha de Estor</a>
+                    <a class="scene-link" href="estoria_cena7.html">Peça: A Queda</a>
+                    <a class="scene-link" href="estoria_cena8.html">Peça: A Traição</a>
+                    <a class="scene-link" href="estoria_cena9.html">Passo Silvestre</a>
+                    <a class="scene-link" href="estoria_cena10.html">Batalha</a>
+                    <a class="scene-link" href="estoria_cena11.html">Acampamento/Repouso</a>
+                </li>
+
+                <li class="subfolder-title">A Forja de Mitral
+                    <a class="scene-link" href="forja_1.html">Centauros</a>
+                    <a class="scene-link" href="forja_2.html">As Grandes Cataratas de Arkelon</a>
+                    <a class="scene-link" href="forja_3.html">Moradores Distintos</a>
+                    <a class="scene-link" href="forja_4.html">O Rei da Montanha</a>
+                    <a class="scene-link" href="forja_5.html">Arapuca Anã</a>
+                    <a class="scene-link" href="forja_6.html">Tanques Ígneos</a>
+                    <a class="scene-link" href="estoria_cena10.html">Batalha</a>
+                    <a class="scene-link" href="estoria_cena11.html">Acampamento/Repouso</a>
+                </li>
+
+                <li class="subfolder-title">O Templo Lodoso
+                    <a class="scene-link" href="templo_1.html">A Floresta Anciã</a>
+                    <a class="scene-link" href="templo_2.html">Templo Antigo</a>
+                    <a class="scene-link" href="templo_3.html">Jovens</a>
+                    <a class="scene-link" href="templo_4.html">Banquetes</a>
+                    <a class="scene-link" href="templo_5.html">O Chifre de Balmytria</a>
+                    <a class="scene-link" href="estoria_cena10.html">Batalha</a>
+                    <a class="scene-link" href="estoria_cena11.html">Acampamento/Repouso</a>
+                </li>
+
+                <li class="subfolder-title">A Necrópole em Telamok
+                    <a class="scene-link" href="necropole_1.html">Os Portões de Ébano</a>
+                    <a class="scene-link" href="necropole_2.html">Túmulo dos Heróis</a>
+                    <a class="scene-link" href="necropole_3.html">O Silêncio de Telamok</a>
+                </li>
+            </ul>
+        </li>
+
+        <li class="folder-title">Juramentos, Sacrifícios e Pressários
+            <ul>
+                <li class="juramento-item">
+                    <a class="scene-link" href="juramento.html">Juramento da Paz</a>
+                </li>
+                <li class="juramento-item">
+                    <a class="scene-link" href="edito.html">Édito de Sydon</a>
+                </li>
+
+                <li class="juramento-item">
+                    <a class="scene-link" href="https://suno.com/song/24c26e4e-e423-48d7-8764-0b925196eeb7?sh=OvRfZJv3VzvVYYna">A Balada do Navio Negro (por Kyrah)</a>
+                </li>
+                <li class="juramento-item">
+                    <a class="scene-link" href="https://suno.com/song/c0eb1194-8c26-4ac5-a6fc-c9e84500c0a3">O Voto do Sacrifício (por Esopo)</a>
+                </li>
+                <li class="juramento-item">
+                    <a class="scene-link" href="https://greciantiga.org/img.asp?num=0592">O moscóforo
+</a>
+                <li class="juramento-item">
+                    <a class="scene-link" href="pesadelo1.html">Sonhos Lúcidos - Chegando à Estória</a>
+                </li>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+</body>
+</html>

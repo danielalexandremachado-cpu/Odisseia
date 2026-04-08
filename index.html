@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Odisseia dos Lordes Dragões - Início</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: black;
+            font-family: 'Georgia', serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Imagem de Fundo (use a CAPA-Odisseia.png se preferir) */
+        .bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            /* Use um caminho relativo ou URL direta */
+            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.9)), url("imagens/CAPA-Odisseia.png");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            z-index: 1;
+        }
+
+        /* Container Principal Centralizado */
+        .container {
+            z-index: 10;
+            text-align: center;
+            animation: fadeIn 1.5s ease forwards;
+            position: relative;
+        }
+
+        h1 {
+            color: #c5a059;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            text-shadow: 2px 2px 15px rgba(0,0,0,1);
+            margin-bottom: 50px;
+            font-size: 3em;
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+
+        /* === ESTILO DO BOTÃO DRAGÃO === */
+        .dragon-link {
+            display: inline-block;
+            width: 300px;
+            height: 300px;
+            position: relative;
+            text-decoration: none;
+            color: #fff;
+            font-size: 1.5em;
+            cursor: pointer;
+            transition: 0.5s ease;
+            transform-origin: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 20px;
+        }
+
+        /* Imagem do Dragão em SVG */
+        .dragon-mask {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Substitua esta URL pelo caminho da sua imagem de dragão em SVG */
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="%23c5a059" d="M129.4 121.7C104.2 133.2 81.3 151.7 61 176c-31.5 37.8-51.5 83-58 131.5C.3 358.5 25.1 411.3 64 440s89.5 39.5 137.5 32c48-7.5 91.5-31.5 125.5-68 34-36.5 54-81.5 60.5-130 6.5-48.5-4.5-98.5-32-142S283.5 67.5 235.5 60c-48-7.5-91.5 3.5-125.5 40zm121.1 140c-2.7 20-13 37.8-29.3 50.3-16.3 12.5-36.8 17.8-57.8 14.9-21-2.9-39.6-14-52.1-31.3-12.5-17.3-17.8-39-14.9-61.1 2.9-22.1 14-41.8 31.3-54.3 17.3-12.5 39-17.8 61.1-14.9 22.1 2.9 41.8 14 54.3 31.3 12.5 17.3 17.8 39 14.9 61.1zm118 78c-6.5-11.3-17-20.3-29.6-25.3-12.6-5-26.4-6-39.4-2.7s-24 10.3-31.4 19.8-11.2 20.9-10.7 33c.5 12.1 4.3 23.5 11 32.7s15.4 16.3 24.9 20.8c9.5 4.5 19.8 6.6 30 6.1s20.1-2.9 28.9-7c8.8-4.1 16.4-10.3 22-18s9-16.5 10.1-25.7 0-18.7-2.3-27.7zM256 0c141.4 0 256 114.6 256 256S397.4 512 256 512 0 397.4 0 256 114.6 0 256 0zm0 40C136.7 40 40 136.7 40 256s96.7 216 216 216 216-96.7 216-216S375.3 40 256 40z"/></svg>');
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="black" d="M129.4 121.7C104.2 133.2 81.3 151.7 61 176c-31.5 37.8-51.5 83-58 131.5C.3 358.5 25.1 411.3 64 440s89.5 39.5 137.5 32c48-7.5 91.5-31.5 125.5-68 34-36.5 54-81.5 60.5-130 6.5-48.5-4.5-98.5-32-142S283.5 67.5 235.5 60c-48-7.5-91.5 3.5-125.5 40zm121.1 140c-2.7 20-13 37.8-29.3 50.3-16.3 12.5-36.8 17.8-57.8 14.9-21-2.9-39.6-14-52.1-31.3-12.5-17.3-17.8-39-14.9-61.1 2.9-22.1 14-41.8 31.3-54.3 17.3-12.5 39-17.8 61.1-14.9 22.1 2.9 41.8 14 54.3 31.3 12.5 17.3 17.8 39 14.9 61.1zm118 78c-6.5-11.3-17-20.3-29.6-25.3-12.6-5-26.4-6-39.4-2.7s-24 10.3-31.4 19.8-11.2 20.9-10.7 33c.5 12.1 4.3 23.5 11 32.7s15.4 16.3 24.9 20.8c9.5 4.5 19.8 6.6 30 6.1s20.1-2.9 28.9-7c8.8-4.1 16.4-10.3 22-18s9-16.5 10.1-25.7 0-18.7-2.3-27.7zM256 0c141.4 0 256 114.6 256 256S397.4 512 256 512 0 397.4 0 256 114.6 0 256 0zm0 40C136.7 40 40 136.7 40 256s96.7 216 216 216 216-96.7 216-216S375.3 40 256 40z"/></svg>');
+            mask-size: contain;
+            mask-position: center;
+            mask-repeat: no-repeat;
+            transition: 0.5s ease;
+            z-index: 5;
+        }
+
+        /* Texto Central do Botão */
+        .dragon-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            text-shadow: 2px 2px 10px rgba(0,0,0,1);
+            color: #fff;
+            opacity: 0.7;
+            transition: 0.3s;
+        }
+
+        /* === ANIMAÇÕES NO HOVER === */
+        /* Efeito de rotação e pulso no container */
+        .dragon-link:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        /* Efeito de cor e brilho na máscara do dragão */
+        .dragon-link:hover .dragon-mask {
+            background-color: #fff; /* Brilho branco */
+            box-shadow: 0 0 30px rgba(197, 160, 89, 1), 0 0 60px rgba(197, 160, 89, 0.7);
+        }
+
+        /* Efeito de opacidade e brilho no texto do botão */
+        .dragon-link:hover .dragon-text {
+            opacity: 1;
+            color: #c5a059;
+            text-shadow: 0 0 10px rgba(197, 160, 89, 1);
+        }
+
+        /* Animações de FadeIn e Brilho (Glow) */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes glow {
+            0% { text-shadow: 0 0 10px rgba(197, 160, 89, 0.5); }
+            100% { text-shadow: 0 0 25px rgba(197, 160, 89, 1), 0 0 40px rgba(197, 160, 89, 0.7); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-image"></div>
+
+    <div class="container">
+        <h1>Odisseia dos Lordes Dragões</h1>
+
+        <a href="Odisseia.html" class="dragon-link">
+            <div class="dragon-mask"></div>
+            <span class="dragon-text">Entrar</span>
+        </a>
+    </div>
+
+</body>
+</html>
