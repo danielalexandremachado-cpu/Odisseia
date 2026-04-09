@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Odisseia dos Lordes Dragões</title>
+
     <style>
         body {
             font-family: 'Georgia', serif;
-            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(https://raw.githubusercontent.com/danielalexandremachado-cpu/imagens/main/CAPA-Odisseia.png);
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("imagens/CAPA-Odisseia.png");
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -125,12 +126,69 @@
             align-items: center;
             margin-top: 10px;
         }
+
+/* Estilo para a imagem que aparece no hover */
+.scene-link {
+    position: relative; /* Necessário para posicionar a imagem em relação ao link */
+}
+
+.hero-preview {
+    display: none;
+    position: absolute;
+    left: 105%; /* Aparece ao lado do link */
+    top: 50%;
+    transform: translateY(-50%);
+    width: 150px; /* Tamanho da miniatura */
+    height: auto;
+    border: 2px solid #c5a059;
+    border-radius: 8px;
+    z-index: 100;
+    box-shadow: 0 0 15px rgba(0,0,0,0.8);
+    pointer-events: none; /* Evita que a imagem atrapalhe o mouse */
+    background-color: #000;
+}
+
+.scene-link:hover .hero-preview {
+    display: block;
+}
+
     </style>
+
+
 </head>
 <body>
 
 <div class="container">
     <h1>Odisseia dos Lordes Dragões</h1>
+
+ <span class="folder-title">📜 Heróis e Capítulos</span>
+<ul>
+    <li class="subfolder-group">
+        <span class="subfolder-title">🛡️ Os Heróis da Profecia</span>
+        <div class="scene-list">
+            <a class="scene-link" href="abobo.html">👤 Abobo <img src="imagens/Abobo.jpeg" class="hero-preview"></a>
+            <a class="scene-link" href="bracus.html">👤 Bracus <img src="imagens/Bracus.jpeg" class="hero-preview"></a>
+            <a class="scene-link" href="gregorio.html">👤 Gregório <img src="imagens/Gregório.jpeg" class="hero-preview"></a>
+            <a class="scene-link" href="lindus.html">👤 Lindus <img src="imagens/Lindus.png" class="hero-preview"></a>
+            <a class="scene-link" href="mashbaah.html">👤 MashBaah <img src="imagens/MashBaah.png" class="hero-preview"></a>
+            <a class="scene-link" href="melina.html">👤 Melina <img src="imagens/Melina.png" class="hero-preview"></a>
+            <a class="scene-link" href="monique.html">👤 Monique <img src="imagens/Monique.png" class="hero-preview"></a>
+            <a class="scene-link" href="romulo.html">👤 Rômulo <img src="imagens/Rômulo.jpeg" class="hero-preview"></a>
+        </div>
+    </li>
+    
+    <li class="subfolder-group">
+        <span class="subfolder-title">📖 Crônicas e Eventos</span>
+        <div class="scene-list">
+            <a class="scene-link" href="https://greciantiga.org/img.asp?num=0592" target="_blank">📜 O moscóforo - Mesa 1</a>
+            <a class="scene-link" href="https://greciantiga.org/img.asp?num=1375" target="_blank">📜 As águas do Léte - Mesa 2</a>
+            <a class="scene-link" href="estoria_cena10.html">⚔️ Batalha</a>
+            <a class="scene-link" href="estoria_cena11.html">🔥 Repouso</a>
+        </div>
+    </li>
+</ul>
+
+
 
     <span class="folder-title">📜 Os Grandes Trabalhos</span>
     
@@ -186,7 +244,7 @@
 
     </ul>
 
-    <span class="folder-title">📜 Juramentos e Presságios</span>
+    <span class="folder-title">📜 Juramentos, Cantos e Presságios</span>
     
     <div class="juramento-list">
         <a class="scene-link" href="juramento.html">⚖️ Juramento da Paz</a>
@@ -195,9 +253,6 @@
         <a class="scene-link" href="https://suno.com/song/c0eb1194-8c26-4ac5-a6fc-c9e84500c0a3" target="_blank">🎵 O Voto do Sacrifício</a>
         <a class="scene-link" href="pesadelo1.html">💤 Sonhos Lúcidos</a>
     </div>
-
-                <a class="scene-link" href="estoria_cena10.html">⚔️ Batalha</a>
-                <a class="scene-link" href="estoria_cena11.html">🔥 Repouso</a>
 
 </div>
 
