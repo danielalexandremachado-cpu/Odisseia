@@ -1,31 +1,113 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+    <meta charset="UTF-8">
     <title>Cena - Estrada para Estória</title>
     <style>
-        body { margin: 0; background: black; overflow: hidden; }
+        body { margin: 0; background: black; overflow: hidden; font-family: 'Georgia', serif; }
+        
         .bg-image {
             width: 100vw; height: 100vh;
-            /* Usando caminho relativo para a pasta imagens */
             background-image: url("imagens/estrada.png");
             background-size: contain;
             background-position: center;
+            background-repeat: no-repeat;
+            position: absolute;
+            z-index: 1;
         }
+
         .back-btn {
             position: absolute; top: 20px; left: 20px;
             color: white; text-decoration: none; background: rgba(0,0,0,0.5);
             padding: 10px; border-radius: 5px;
-            z-index: 10; /* Garante que o botão fique na frente da imagem */
+            z-index: 10;
+        }
+
+        #play-screen {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background: rgba(0,0,0,0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 20;
+            transition: opacity 0.5s ease;
+        }
+
+        .btn-iniciar {
+            padding: 20px 40px;
+            font-size: 1.5em;
+            color: #c5a059;
+            background: #1a1a1a;
+            border: 2px solid #c5a059;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(197, 160, 89, 0.5);
+        }
+
+        .audio-player-container {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 15;
+            background: rgba(26, 26, 26, 0.9);
+            padding: 15px 25px;
+            border-radius: 50px;
+            border: 1px solid #c5a059;
+            display: none;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.8);
+        }
+
+        audio {
+            height: 30px;
+            filter: sepia(100%) hue-rotate(10deg) saturate(200%) brightness(80%);
         }
     </style>
 </head>
 <body>
+
     <a href="Odisseia.html" class="back-btn">⬅ Voltar</a>
-    <div class="bg-image"></div>
     
-    <audio autoplay loop>
-        /* Usando caminho relativo para a pasta sons */
-        <source src="sons/freesound_community-village-theme-68229.mp3" type="audio/mpeg" type="audio/mpeg">
-    </audio>
+    <div id="play-screen">
+        <button class="btn-iniciar" onclick="iniciarCena()">⚔️ Iniciar Cena</button>
+    </div>
+
+    <div class="bg-image"></div>
+
+    <div class="audio-player-container" id="controls">
+        <audio id="musicaLocal" controls loop>
+            <source src="sons/freesound_community-village-theme-68229.mp3" type="audio/mpeg">
+            Seu navegador não suporta áudio.
+        </audio>
+    </div>
+
+    <script>
+        const audio = document.getElementById('musicaLocal');
+
+        // Reforço do Loop: Se por algum motivo o loop falhar, o script reinicia o áudio
+        audio.addEventListener('ended', function() {
+            this.currentTime = 0;
+            this.play();
+        }, false);
+
+        function iniciarCena() {
+            const screen = document.getElementById('play-screen');
+            const controls = document.getElementById('controls');
+            
+            // Inicia o áudio local
+            audio.play().catch(e => console.log("Erro ao tocar:", e));
+            
+            // Mostra os controles e remove a tela de início
+            controls.style.display = 'flex';
+            screen.style.opacity = '0';
+            setTimeout(() => {
+                screen.style.display = 'none';
+            }, 500);
+        }
+    </script>
 </body>
 </html>
