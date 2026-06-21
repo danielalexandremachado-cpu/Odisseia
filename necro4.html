@@ -2,13 +2,13 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Cena - Batalha</title>
+    <title>Cena - O caminho de Telamok</title>
     <style>
         body { margin: 0; background: black; overflow: hidden; font-family: 'Georgia', serif; }
         
         .bg-image {
             width: 100vw; height: 100vh;
-            background-image: url("imagens/battle.png");
+            background-image: url("imagens/caminhandoparatelamok.png");
             background-size: contain;
             background-position: center;
             background-repeat: no-repeat;
@@ -80,14 +80,14 @@
     <a href="Odisseia.html" class="back-btn">⬅ Voltar</a>
     
     <div id="play-screen">
-        <button class="btn-iniciar" onclick="iniciarCena()"> ⚔️ Iniciar o combate...</button>
+        <button class="btn-iniciar" onclick="iniciarCena()">💀 Revirando ossos e memórias...</button>
     </div>
 
     <div class="bg-image"></div>
 
     <div class="audio-player-container" id="controls">
         <audio id="musicaLocal" controls loop>
-            <source src="sons/batalha.mp3" type="audio/mpeg">
+            <source src="sons/shell.mp3" type="audio/mpeg">
             Seu navegador não suporta áudio.
         </audio>
     </div>
@@ -99,7 +99,7 @@
             const screen = document.getElementById('play-screen');
             const controls = document.getElementById('controls');
             
-            // Inicia o áudio local (floresta.mp3)
+            // Inicia o áudio local (shell.mp3)
             audio.play().catch(e => console.log("Erro ao tocar:", e));
             
             // Mostra os controles e remove a tela de início
@@ -116,36 +116,5 @@
             this.play();
         }, false);
     </script>
-</body>
-</html>
-
-
-
-
-
-
-
-
-
-            background-image: url("imagens/");
-            background-size: contain;
-            background-position: center;
-        }
-        .back-btn {
-            position: absolute; top: 20px; left: 20px;
-            color: white; text-decoration: none; background: rgba(0,0,0,0.5);
-            padding: 10px; border-radius: 5px;
-            z-index: 10; /* Garante que o botão fique na frente da imagem */
-        }
-    </style>
-</head>
-<body>
-    <a href="Odisseia.html" class="back-btn">⬅ Voltar</a>
-    <div class="bg-image"></div>
-    
-    <audio autoplay loop>
-        /* Usando caminho relativo para a pasta sons */
-        <source src="sons/" type="audio/mpeg">
-    </audio>
 </body>
 </html>
