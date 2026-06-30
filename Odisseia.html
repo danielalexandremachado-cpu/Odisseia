@@ -46,22 +46,64 @@
 
         ul { list-style: none; padding: 0; margin: 0; }
 
-        .folder-title {
-            font-size: 1.6em;
-            color: #f1e5ac;
-            margin-top: 40px;
-            margin-bottom: 20px;
-            font-variant: small-caps;
-            letter-spacing: 2px;
-            display: block;
+        /* ESTILO DOS MENUS PRINCIPAIS (CONVERSÃO PARA CLICÁVEL) */
+        .main-folder-wrapper {
+            margin-top: 30px;
             border-bottom: 1px solid rgba(197, 160, 89, 0.3);
         }
 
-        /* GRUPO ACORDEÃO */
+        .main-folder-title {
+            font-size: 1.6em;
+            color: #f1e5ac;
+            padding: 10px 0;
+            font-variant: small-caps;
+            letter-spacing: 2px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            transition: color 0.3s;
+        }
+
+        .main-folder-title:hover {
+            color: #ffffff;
+        }
+
+        /* Seta indicadora para os menus principais */
+        .main-folder-title::after {
+            content: '▶';
+            font-size: 0.6em;
+            color: #c5a059;
+            transition: transform 0.3s;
+        }
+
+        .main-folder-wrapper.active .main-folder-title::after {
+            transform: rotate(90deg);
+        }
+
+        /* Conteúdo do menu principal (escondido por padrão) */
+        .main-folder-content {
+            display: none;
+            padding: 15px 0;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .main-folder-wrapper.active .main-folder-content {
+            display: block;
+        }
+
+        /* GRUPO ACORDEÃO (SUBPASTAS) */
         .subfolder-group {
             margin: 10px auto;
             max-width: 600px;
             text-align: left;
+        }
+
+        /* Estilo para subgrupo quando aninhado dentro de uma scene-list */
+        .scene-list .subfolder-group {
+            margin: 10px 0;
+            max-width: 100%;
         }
 
         .subfolder-title {
@@ -84,14 +126,13 @@
             border-color: #c5a059;
         }
 
-        /* Seta indicadora */
         .subfolder-title::after {
             content: '▼';
             font-size: 0.8em;
             transition: 0.3s;
         }
 
-        .subfolder-group.active .subfolder-title::after {
+        .subfolder-group.active > .subfolder-title::after {
             transform: rotate(180deg);
         }
 
@@ -108,8 +149,7 @@
             margin-bottom: 10px;
         }
 
-        /* Classe que o JavaScript vai alternar */
-        .subfolder-group.active .scene-list {
+        .subfolder-group.active > .scene-list {
             display: block;
             animation: slideDown 0.3s ease-out;
         }
@@ -117,6 +157,11 @@
         @keyframes slideDown {
             from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .scene-link {
@@ -137,33 +182,26 @@
             padding-left: 15px;
         }
 
-      /* PREVIEW DAS IMAGENS */
-.hero-preview {
-    display: none;
-    position: absolute; /* Agora segue a posição do link (linha) */
-    left: 100%;        /* Aparece logo após o fim do texto do link */
-    top: 50%;          /* Alinha ao centro vertical da linha */
-    transform: translateY(-50%) translateX(20px); /* Centraliza e dá um pequeno espaço à direita */
-    width: 320px;
-    height: auto;
-    border: 3px solid #c5a059;
-    border-radius: 10px;
-    z-index: 1000;
-    box-shadow: 0 0 30px rgba(0,0,0,0.9);
-    pointer-events: none;
-    background-color: #000;
-}
+        /* PREVIEW DAS IMAGENS */
+        .hero-preview {
+            display: none;
+            position: absolute;
+            left: 100%;
+            top: 50%;
+            transform: translateY(-50%) translateX(20px);
+            width: 320px;
+            height: auto;
+            border: 3px solid #c5a059;
+            border-radius: 10px;
+            z-index: 1000;
+            box-shadow: 0 0 30px rgba(0,0,0,0.9);
+            pointer-events: none;
+            background-color: #000;
+        }
 
-/* Garante que o container pai não esconda a imagem */
-.scene-list, .subfolder-group {
-    position: relative;
-    overflow: visible; 
-}
-
-/* Exibe ao passar o mouse */
-.scene-link:hover .hero-preview {
-    display: block;
-}
+        .scene-list, .subfolder-group {
+            position: relative;
+            overflow: visible; 
         }
 
         .scene-link:hover .hero-preview {
@@ -173,8 +211,7 @@
         .juramento-list {
             display: flex;
             flex-direction: column;
-            align-items: center;
-            margin-top: 20px;
+            align-items: stretch;
         }
 
     </style>
@@ -184,242 +221,254 @@
 <div class="container">
     <h1>Odisseia dos Lordes Dragões</h1>
 
-    <span class="folder-title">📜 Heróis e Capítulos</span>
-    <ul>
-        <li class="subfolder-group">
-            <span class="subfolder-title">🛡️ Os Heróis da Profecia</span>
-            <div class="scene-list">
-                <span class="scene-link">👤 Abobo <img src="imagens/Abobo.jpeg" class="hero-preview"></span>
-                <span class="scene-link">👤 Bracus <img src="imagens/Bracus.jpeg" class="hero-preview"></span>
-                <span class="scene-link">👤 Gregório <img src="imagens/Gregório.jpeg" class="hero-preview"></span>
-                <span class="scene-link">👤 Lindus <img src="imagens/lindus.jpeg" class="hero-preview"></span>
-                <span class="scene-link">👤 MashBaah <img src="imagens/MashBaah.png" class="hero-preview"></span>
-                <span class="scene-link">👤 Melina <img src="imagens/melina.png" class="hero-preview"></span>
-                <span class="scene-link">👤 Monique <img src="imagens/moniqu.png" class="hero-preview"></span>
-                <span class="scene-link">👤 Rômulo <img src="imagens/Rômulo.jpeg" class="hero-preview"></span>
-                <span class="scene-link">👤 Serena <img src="imagens/serena.jpeg" class="hero-preview"></span>
-                <span class="scene-link">👤 Mergo <img src="imagens/Mergo.png" class="hero-preview"></span>
-            </div>
-        </li>
+    <div class="main-folder-wrapper">
+        <span class="main-folder-title">📜 Heróis e Capítulos</span>
+        <div class="main-folder-content">
+            <ul>
+                <li class="subfolder-group">
+                    <span class="subfolder-title">🛡️ Os Heróis da Profecia</span>
+                    <div class="scene-list">
+                        <span class="scene-link">👤 Abobo <img src="imagens/Abobo.jpeg" class="hero-preview"></span>
+                        <span class="scene-link">👤 Bracus <img src="imagens/Bracus.jpeg" class="hero-preview"></span>
+                        <span class="scene-link">👤 Gregório <img src="imagens/Gregório.jpeg" class="hero-preview"></span>
+                        <span class="scene-link">👤 Lindus <img src="imagens/lindus.jpeg" class="hero-preview"></span>
+                        <span class="scene-link">👤 MashBaah <img src="imagens/MashBaah.png" class="hero-preview"></span>
+                        <span class="scene-link">👤 Melina <img src="imagens/melina.png" class="hero-preview"></span>
+                        <span class="scene-link">👤 Monique <img src="imagens/moniqu.png" class="hero-preview"></span>
+                        <span class="scene-link">👤 Rômulo <img src="imagens/Rômulo.jpeg" class="hero-preview"></span>
+                        <span class="scene-link">👤 Serena <img src="imagens/serena.jpeg" class="hero-preview"></span>
+                        <span class="scene-link">👤 Mergo <img src="imagens/Mergo.png" class="hero-preview"></span>
+                    </div>
+                </li>
 
-        <li class="subfolder-group">
-            <span class="subfolder-title">✨ Os Deuses e Lendas</span>
-            <div class="scene-list"> 
-                <span class="scene-link">🔮 Kyrah (Poeta) <img src="imagens/kyrah.png" class="hero-preview"></span>
-                <span class="scene-link">🍺 Pythor (Batalha) <img src="imagens/pythor.png" class="hero-preview"></span>
-                <span class="scene-link">🌙 Mytros (Deusa Prateada) <img src="imagens/mytros.png" class="hero-preview"></span>
-                <span class="scene-link">🔨 Volkan (Forja) <img src="imagens/volkan.png" class="hero-preview"></span>
-                <span class="scene-link">⚖️ Vallus (Sabedoria) <img src="imagens/vallus.jpg" class="hero-preview"></span>
-                <span class="scene-link">🌱 Thylea (Omnimatriarca) <img src="imagens/thylea.jpg" class="hero-preview"></span>
-                <span class="scene-link">🗿 Centimano (O Cem Mãos) <img src="imagens/centimano.jpg" class="hero-preview"></span>
-            </div>
-        </li>
+                <li class="subfolder-group">
+                    <span class="subfolder-title">✨ Os Deuses e Lendas</span>
+                    <div class="scene-list"> 
+                        <span class="scene-link">🔮 Kyrah (Poeta) <img src="imagens/kyrah.png" class="hero-preview"></span>
+                        <span class="scene-link">🍺 Pythor (Batalha) <img src="imagens/pythor.png" class="hero-preview"></span>
+                        <span class="scene-link">🌙 Mytros (Deusa Prateada) <img src="imagens/mytros.png" class="hero-preview"></span>
+                        <span class="scene-link">🔨 Volkan (Forja) <img src="imagens/volkan.png" class="hero-preview"></span>
+                        <span class="scene-link">⚖️ Vallus (Sabedoria) <img src="imagens/vallus.jpg" class="hero-preview"></span>
+                        <span class="scene-link">🌱 Thylea (Omnimatriarca) <img src="imagens/thylea.jpg" class="hero-preview"></span>
+                        <span class="scene-link">🗿 Centimano (O Cem Mãos) <img src="imagens/centimano.jpg" class="hero-preview"></span>
+                    </div>
+                </li>
 
-        <li class="subfolder-group">
-            <span class="subfolder-title">⛈️ Os Titãs e Antagonistas</span>
-            <div class="scene-list">
-                <span class="scene-link">🔱 Sydon (Tempestades) <img src="imagens/sydon.jpg" class="hero-preview"></span>
-                <span class="scene-link">💀 Lutheria (Morte) <img src="imagens/lutheria.jpg" class="hero-preview"></span>
-                <span class="scene-link">💩 Gaio <img src="imagens/gaio.jpg" class="hero-preview"></span>
-                <span class="scene-link">👩🏻‍🎤 Demétria, a desolada <img src="imagens/demetria.png" class="hero-preview"></span>
-                <span class="scene-link">☠️ Damon, o último arauto (SPOILERS) <img src="imagens/damon1.png" class="hero-preview"></span>
+                <li class="subfolder-group">
+                    <span class="subfolder-title">⛈️ Os Titãs e Antagonistas</span>
+                    <div class="scene-list">
+                        <span class="scene-link">🔱 Sydon (Tempestades) <img src="imagens/sydon.jpg" class="hero-preview"></span>
+                        <span class="scene-link">💀 Lutheria (Morte) <img src="imagens/lutheria.jpg" class="hero-preview"></span>
+                        <span class="scene-link">💩 Gaio <img src="imagens/gaio.jpg" class="hero-preview"></span>
+                        <span class="scene-link">👩🏻‍🎤 Demétria, a desolada <img src="imagens/demetria.png" class="hero-preview"></span>
+                        <span class="scene-link">☠️ Damon, o último arauto (SPOILERS) <img src="imagens/damon1.png" class="hero-preview"></span>
+                    </div>
+                </li>
 
-<!-- Mytros
-                <span class="scene-link">🗡️ Chondrus, Campeão de Lutheria <img src="imagens/acasus.jpg" class="hero-preview"></span>
-                <span class="scene-link">🗡️ Bella, a Concubina Real <img src="imagens/lucus.jpg" class="hero-preview"></span>
-                <span class="scene-link">🗡️ Ícaro, o Dragão do Rei <img src="imagens/acatus.jpg" class="hero-preview"></span>
-                <span class="scene-link">🗡️ Argyn, o Dragão de Gaio <img src="imagens/lucus.jpg" class="hero-preview"></span>
+                <li class="subfolder-group">
+                    <span class="subfolder-title">🐉 Figuras Chave e Criaturas</span>
+                    <div class="scene-list">
+                        <span class="scene-link">⚖️ Versi, A Oráculo <img src="imagens/versi.png" class="hero-preview"></span>
+                        <span class="scene-link">👧 <b>Anora</b> <img src="imagens/anora.jpeg" class="hero-preview"></span>
+                        <span class="scene-link">🍷 Aria e Seema <img src="imagens/ariaeseema.png" class="hero-preview"></span>
+                        <span class="scene-link">🛡️ Esopo <img src="imagens/esopo.png" class="hero-preview"></span>
+                        <span class="scene-link">👑 Rei Acastus <img src="imagens/acastus.jpg" class="hero-preview"></span>
+                        <span class="scene-link">🏛️ Breca, Centurião de Sydon <img src="imagens/breca.png" class="hero-preview"></span>
+                        <span class="scene-link">🏺 Loreu, Sátiro Mercador <img src="imagens/loreu.png" class="hero-preview"></span>
+                        <span class="scene-link">🌲 Thobos, Gnomo da Floresta <img src="imagens/obos.png" class="hero-preview"></span>
+                        <span class="scene-link">🗡️ Téricles, Soldado Aposentado <img src="imagens/icles.png" class="hero-preview"></span>
+                        <span class="scene-link">🐎 Baenor, Líder Centauro (Estor) <img src="imagens/baenor.png" class="hero-preview"></span>
+                        <span class="scene-link">🏹 Hukar, Líder Centauro Nômade <img src="imagens/kar.png" class="hero-preview"></span>
+                        <span class="scene-link">🎀 Corinna, Filha de Téricles <img src="imagens/corinna.png" class="hero-preview"></span>
+                        <span class="scene-link">🤝 Herkus, o "Prestativo" <img src="imagens/kus.png" class="hero-preview"></span>
+                        <span class="scene-link">🤝 Herkus, o "Prestativo" <img src="imagens/kus.png" class="hero-preview"></span>
+                        <span class="scene-link">👁️ Tone, o Ciclope cozinheiro <img src="imagens/Tone.png" class="hero-preview"></span>
+                        <span class="scene-link">👁️ Tuc, o Ciclope amigo <img src="imagens/Tuc.png" class="hero-preview"></span>
+                        <span class="scene-link">🔥 Solana, a protetora da forja <img src="imagens/protetora.png" class="hero-preview"></span>
+                        <span class="scene-link">🗡️ Lucius, Centurião de Mytros (SPOILERS) <img src="imagens/lucius.jpg" class="hero-preview"></span>
+                        <span class="scene-link">🗡️ Rhani, Tutora e Inventora (SPOILERS) <img src="imagens/rhani.jpeg" class="hero-preview"></span>
+                    </div>
+                </li>
 
-
-  --!>
-
-            </div>
-        </li>
-
-        <li class="subfolder-group">
-            <span class="subfolder-title">🐉 Figuras Chave e Criaturas</span>
-            <div class="scene-list">
-                <span class="scene-link">⚖️ Versi, A Oráculo <img src="imagens/versi.png" class="hero-preview"></span>
-                <span class="scene-link">👧 <b>Anora</b> <img src="imagens/anora.jpeg" class="hero-preview"></span>
-                <span class="scene-link">🍷 Aria e Seema <img src="imagens/ariaeseema.png" class="hero-preview"></span>
-                <span class="scene-link">🛡️ Esopo <img src="imagens/esopo.png" class="hero-preview"></span>
-                <span class="scene-link">👑 Rei Acastus <img src="imagens/acastus.jpg" class="hero-preview"></span>
-                <span class="scene-link">🏛️ Breca, Centurião de Sydon <img src="imagens/breca.png" class="hero-preview"></span>
-                <span class="scene-link">🏺 Loreu, Sátiro Mercador <img src="imagens/loreu.png" class="hero-preview"></span>
-                <span class="scene-link">🌲 Thobos, Gnomo da Floresta <img src="imagens/obos.png" class="hero-preview"></span>
-                <span class="scene-link">🗡️ Téricles, Soldado Aposentado <img src="imagens/icles.png" class="hero-preview"></span>
-                <span class="scene-link">🐎 Baenor, Líder Centauro (Estor) <img src="imagens/baenor.png" class="hero-preview"></span>
-                <span class="scene-link">🏹 Hukar, Líder Centauro Nômade <img src="imagens/kar.png" class="hero-preview"></span>
-                <span class="scene-link">🎀 Corinna, Filha de Téricles <img src="imagens/corinna.png" class="hero-preview"></span>
-                <span class="scene-link">🤝 Herkus, o "Prestativo" <img src="imagens/kus.png" class="hero-preview"></span>
-                <span class="scene-link">👁️ Tone, o Ciclope cozinheiro <img src="imagens/Tone.png" class="hero-preview"></span>
-                <span class="scene-link">👁️ Tuc, o Ciclope amigo <img src="imagens/Tuc.png" class="hero-preview"></span>
-                <span class="scene-link">🔥 Solana, a protetora da forja <img src="imagens/protetora.png" class="hero-preview"></span>
-                <span class="scene-link">🗡️ Lucius, Centurião de Mytros (SPOILERS) <img src="imagens/lucius.jpg" class="hero-preview"></span>
-
-<!-- Mytros
-                <span class="scene-link">📖 Laycan, o Diploma <img src="imagens/lucius.jpg" class="hero-preview"></span>
-                <span class="scene-link">🗡️ Akimedes, o Adivinhador <img src="imagens/acastus.jpg" class="hero-preview"></span>
-                <span class="scene-link">🗡️ Os Grandes Filósofos <img src="imagens/lucius.jpg" class="hero-preview"></span>
-                <span class="scene-link">🗡️ Taran Neurdagon <img src="imagens/acastus.jpg" class="hero-preview"></span>
-                <span class="scene-link">🗡️ Vital, o Perfumado <img src="imagens/acastus.jpg" class="hero-preview"></span>
-                <span class="scene-link">🗡️ Bestaura <img src="imagens/lucius.jpg" class="hero-preview"></span>
-                <span class="scene-link">🗡️ Muuhtir, o Procurado <img src="imagens/acastus.jpg" class="hero-preview"></span>
-                <span class="scene-link">🗡️ Makhaira, Capitã Amazona <img src="imagens/acastus.jpg" class="hero-preview"></span>
-                <span class="scene-link">🗡️ Sulla, Neurdagon <img src="imagens/acastus.jpg" class="hero-preview"></span>
-
-  --!>
-
-            </div>
-        </li>
-
-        <li class="subfolder-group">
-            <span class="subfolder-title">📖 Crônicas e Eventos</span>
-            <div class="scene-list">
-                <a class="scene-link" href="https://greciantiga.org/img.asp?num=0647">📜 Caça ao javali de Cálidon - Mesa Prólogo</a>
-                <a class="scene-link" href="https://greciantiga.org/img.asp?num=0592" target="_blank">📜 O moscóforo - Mesa 1</a>
-                <a class="scene-link" href="https://greciantiga.org/img.asp?num=1375" target="_blank">📜 As águas do Léte - Mesa 2</a>
-                <a class="scene-link" href="https://greciantiga.org/arquivo.asp?num=0133" target="_blank">📜 Morte e apoteose de Héracles - Mesa 3</a>
-                <a class="scene-link" href="https://greciantiga.org/img.asp?num=0579" target="_blank">📜 Cabra Amalteia, <s>Zeus criança</s> <b>Anora</b> e sátiro - Mesa 4</a>
-                <a class="scene-link" href="https://greciantiga.org/img.asp?num=0443" target="_blank">📜 Saturno devorando um de seus filhos - Mesa 5</a>
-                <a class="scene-link" href="https://greciantiga.org/img.asp?num=0440" target="_blank">📜 O Ciclope - Mesa 6</a>
-                <a class="scene-link" href="https://greciantiga.org/img.asp?num=0726" target="_blank">📜 <s>Circe</s> <b>Demétria</b> oferece a taça <s>a Odisseu</s> <b>aos Heróis</b> - Mesa 7</a>
-                <a class="scene-link" href="https://greciantiga.org/img.asp?num=1387" target="_blank">📜 Um ciclope cômico (ou satírico) - Mesa 8</a>
-                <a class="scene-link" href="https://greciantiga.org/img.asp?num=0045" target="_blank">📜 Machado duplo <s>minoico</s> <b>anão</b> - Mesa 9</a>
-                <a class="scene-link" href="https://greciantiga.org/img.asp?num=0963" target="_blank">📜 Forno de oleiro de Erétria - Mesa 10</a>
-                <a class="scene-link" href="https://greciantiga.org/img.asp?num=0313" target="_blank">📜 Pequena erupção solar - Mesa 11</a>
-                <a class="scene-link" href="https://greciantiga.org/img.asp?num=0751" target="_blank">📜 Lamentação fúnebre - Mesa 12</a>
-                <a class="scene-link" href="https://greciantiga.org/img.asp?num=0256" target="_blank">📜 Entrada da tumba de <s>Felipe II</s> <b>Estor</b> - Mesa 13</a>
-<!-- Necropole
-                <a class="scene-link" href="https://greciantiga.org/img.asp?num=0808" target="_blank">📜 Sepultura <s>minoica</s> <b>de Telamok</b> - Mesa 14</a>
-
-  --!>
-                <a class="scene-link" href="batalha.html">⚔️ Batalha</a>
-                <a class="scene-link" href="repouso.html">🔥 Repouso</a>
-            </div>
-        </li>
-    </ul>
-
-    <span class="folder-title">📜 Os Grandes Trabalhos</span>
-    <ul>
-        <li class="subfolder-group">
-            <span class="subfolder-title">📍 A Cidade de Estória</span>
-            <div class="scene-list">
-                <a class="scene-link" href="estoria_cena0.html">👁️ Estrada para Estória</a>
-                <a class="scene-link" href="estoria_cena1.html">👁️ A Ágora</a>
-                <a class="scene-link" href="estoria_cena2.html">👁️ O Santuário do Dragão</a>
-                <a class="scene-link" href="estoria_cena3.html">👁️ O Dente do Dragão</a>
-                <a class="scene-link" href="estoria_cena4.html">👁️ O Trono de Pythor</a>
-                <a class="scene-link" href="estoria_cena5.html">👁️ O Salão de Volkan</a>
-                <a class="scene-link" href="estoria_cena6.html">👁️ A Rocha de Estor</a>
-                <a class="scene-link" href="estoria_cena9.html">👁️ O Passo Silvestre</a>
-                <a class="scene-link" href="estoria_cena13.html">👁️ Casa de Thobos</a>
-                <a class="scene-link" href="estoria_cena10.html">👁️ Esquinas Cruzadas</a>
-                <a class="scene-link" href="estoria_cena11.html">👁️ Entre Muros e Jardins</a>
-                <a class="scene-link" href="estoria_cena12.html">👁️ Morte e Apoteose</a>
-                <a class="scene-link" href="estoria_cena14.html">👁️ Vinhedos Estorianos</a>
-            </div>
-        </li>
-
-        <li class="subfolder-group">
-            <span class="subfolder-title">📍 O Templo Lodoso</span>
-            <div class="scene-list">
-                <a class="scene-link" href="templo1.html">👁️ A Floresta Anciã</a>
-                <a class="scene-link" href="templo2.html">👁️ Pilares Lodosos</a>
-                <a class="scene-link" href="templo3.html">👁️ Templo Antigo</a>
-                <a class="scene-link" href="templo4.html">👁️ Jovens</a>
-                <a class="scene-link" href="templo5.html">👁️ Banquetes</a>
-                <a class="scene-link" href="templo7.html">👁️ A Bela Irmã </a>
-                <a class="scene-link" href="templo6.html">👁️ O Chifre de Balmytria</a>
-            </div>
-        </li>
-
-        <li class="subfolder-group">
-            <span class="subfolder-title">📍 A Forja de Mitral</span>
-            <div class="scene-list">
-                <a class="scene-link" href="forja1.html">👁️ Centauros</a>
-                <a class="scene-link" href="forja2.html">👁️ Cataratas de Arkelon</a>
-                <a class="scene-link" href="forja3.html">👁️ Moradores Distintos</a>
-                <a class="scene-link" href="forja4.html">👁️ O Rei da Montanha</a>
-                <a class="scene-link" href="forja8.html">👁️ Ventre da Montanha</a>
-                <a class="scene-link" href="forja9.html">👁️ Corredores Abandonados</a>
-                <a class="scene-link" href="forja5.html">👁️ Arapuca Anã</a>
-                <a class="scene-link" href="forja6.html">👁️ Tanques Ígneos</a>
-                <a class="scene-link" href="forja7.html">👁️ Heróis do Vale Perdido</a>
-            </div>
-        </li>
-
-        <li class="subfolder-group">
-            <span class="subfolder-title">📍 A Necrópole em Telamok (SPOILERS)</span>
-            <div class="scene-list">
-                <a class="scene-link" href="necro4.html">👁️ O Cortejo Fúnebre dos Lordes</a>
-                <a class="scene-link" href="necro1.html">👁️ O Silêncio de Telamok</a>
-                <a class="scene-link" href="necro2.html">👁️ O Eterno Enlutado</a>
-                <a class="scene-link" href="necro3.html">👁️ Túmulos dos Heróis</a>
-                <a class="scene-link" href="necro5.html">👁️ Corredores Sem Fim</a>
-
-
-<!-- Machado de Xander e o Escudo de Volkan foram tomados pelo minotauro Gráxis, ao passo que a Couraça Peitoral de M ytros  --!>
-
-
-            </div>
-        </li>
-    </ul>
-
-<span class="folder-title">📜 Pela Honra de Mytros (SPOILERS)</span>
-    <ul>
-        <li class="subfolder-group">
-            <span class="subfolder-title">📍 Mytros e arredores (SPOILERS)</span>
-            <div class="scene-list">
-                <a class="scene-link" href="Mytros_1.html">👁️ A Clareira</a>
-                <a class="scene-link" href="Mytros_2.html">👁️ O Pouso dos Dragões</a>
-                <a class="scene-link" href="Mytros_3.html">👁️ A Gloriosa Mytros</a>
-                <a class="scene-link" href="Mytros_4.html">👁️ O Colosso de Pythor</a>
-                <a class="scene-link" href="Mytros_5.html">👁️ A Travessa Estigiana</a>
-                <a class="scene-link" href="Mytros_6.html">👁️ O Porto de Mytros</a>
-                <a class="scene-link" href="Mytros_7.html">👁️ O Distrito Nobre</a>
-                <a class="scene-link" href="Mytros_8.html">👁️ O Distrito dos Templos</a>
-                <a class="scene-link" href="Mytros_9.html">👁️ O Grande Palácio</a>
-                <a class="scene-link" href="Mytros_10.html">👁️ A Academia dos Sábios</a>
-
-            </div>
-        </li>
-
-        <li class="subfolder-group">
-            <span class="subfolder-title">📍 Os Grandes Jogos (SPOILERS)</span>
-            <div class="scene-list">
-                <a class="scene-link" href="jogos_1.html">👁️ O Monte Volkan</a>
-                <a class="scene-link" href="jogos_2.html">👁️ O Banquete de Acastus</a>
-                <a class="scene-link" href="jogos_3.html">👁️ Os Atletas</a>
-
-            </div>
-        </li>
-
-    </ul>
-
-    <span class="folder-title">📜 Juramentos e Cantos</span>
-    <div class="juramento-list">
-        <a class="scene-link" href="juramento.html">⚖️ Juramento da Paz</a>
-        <a class="scene-link" href="edito.html">📜 Édito de Sydon</a>
-        <a class="scene-link" href="https://suno.com/song/24c26e4e-e423-48d7-8764-0b925196eeb7" target="_blank">🎵 A Balada do Navio Negro</a>
-        <a class="scene-link" href="https://suno.com/song/c0eb1194-8c26-4ac5-a6fc-c9e84500c0a3" target="_blank">🎵 O Voto do Sacrifício</a>
-        <a class="scene-link" href="pesadelo1.html">💤 Sonhos Lúcidos - A primeira visita</a>
-        <a class="scene-link" href="pesadelo2.html">💤 Sonhos Lúcidos - Desunião</a>
-        <a class="scene-link" href="pesadelo3.html">💤 Sonhos Lúcidos - Próximos a primeira verdade</a>
+                <li class="subfolder-group">
+                    <span class="subfolder-title">📖 Crônicas e Eventos</span>
+                    <div class="scene-list">
+                        <a class="scene-link" href="https://greciantiga.org/img.asp?num=0647">📜 Caça ao javali de Cálidon - Mesa Prólogo</a>
+                        <a class="scene-link" href="https://greciantiga.org/img.asp?num=0592" target="_blank">📜 O moscóforo - Mesa 1</a>
+                        <a class="scene-link" href="https://greciantiga.org/img.asp?num=1375" target="_blank">📜 As águas do Léte - Mesa 2</a>
+                        <a class="scene-link" href="https://greciantiga.org/arquivo.asp?num=0133" target="_blank">📜 Morte e apoteose de Héracles - Mesa 3</a>
+                        <a class="scene-link" href="https://greciantiga.org/img.asp?num=0579" target="_blank">📜 Cabra Amalteia, <s>Zeus criança</s> <b>Anora</b> e sátiro - Mesa 4</a>
+                        <a class="scene-link" href="https://greciantiga.org/img.asp?num=0443" target="_blank">📜 Saturno devorando um de seus filhos - Mesa 5</a>
+                        <a class="scene-link" href="https://greciantiga.org/img.asp?num=0440" target="_blank">📜 O Ciclope - Mesa 6</a>
+                        <a class="scene-link" href="https://greciantiga.org/img.asp?num=0726" target="_blank">📜 <s>Circe</s> <b>Demétria</b> oferece a taça <s>a Odisseu</s> <b>aos Heróis</b> - Mesa 7</a>
+                        <a class="scene-link" href="https://greciantiga.org/img.asp?num=1387" target="_blank">📜 Um ciclope cômico (ou satírico) - Mesa 8</a>
+                        <a class="scene-link" href="https://greciantiga.org/img.asp?num=0045" target="_blank">📜 Machado duplo <s>minoico</s> <b>anão</b> - Mesa 9</a>
+                        <a class="scene-link" href="https://greciantiga.org/img.asp?num=0963" target="_blank">📜 Forno de oleiro de Erétria - Mesa 10</a>
+                        <a class="scene-link" href="https://greciantiga.org/img.asp?num=0313" target="_blank">📜 Pequena erupção solar - Mesa 11</a>
+                        <a class="scene-link" href="https://greciantiga.org/img.asp?num=0751" target="_blank">📜 Lamentação fúnebre - Mesa 12</a>
+                        <a class="scene-link" href="https://greciantiga.org/img.asp?num=0256" target="_blank">📜 Entrada da tumba de <s>Felipe II</s> <b>Estor</b> - Mesa 13</a>
+                        <a class="scene-link" href="https://www.museocanova.it/en/collection/sculptures/teseo-sul-minotauro/" target="_blank">📜 Teseo e o Minotauro</s> <b>Estor</b> - Mesa 14</a>
+                        <a class="scene-link" href="batalha.html">⚔️ Batalha</a>
+                        <a class="scene-link" href="repouso.html">🔥 Repouso</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
     </div>
+
+    <div class="main-folder-wrapper">
+        <span class="main-folder-title">📜 Os Grandes Trabalhos</span>
+        <div class="main-folder-content">
+            <ul>
+                <li class="subfolder-group">
+                    <span class="subfolder-title">📍 A Cidade de Estória</span>
+                    <div class="scene-list">
+                        <a class="scene-link" href="estoria_cena0.html">👁️ Estrada para Estória</a>
+                        <a class="scene-link" href="estoria_cena1.html">👁️ A Ágora</a>
+                        <a class="scene-link" href="estoria_cena2.html">👁️ O Santuário do Dragão</a>
+                        <a class="scene-link" href="estoria_cena3.html">👁️ O Dente do Dragão</a>
+                        <a class="scene-link" href="estoria_cena4.html">👁️ O Trono de Pythor</a>
+                        <a class="scene-link" href="estoria_cena5.html">👁️ O Salão de Volkan</a>
+                        <a class="scene-link" href="estoria_cena6.html">👁️ A Rocha de Estor</a>
+                        <a class="scene-link" href="estoria_cena9.html">👁️ O Passo Silvestre</a>
+                        <a class="scene-link" href="estoria_cena13.html">👁️ Casa de Thobos</a>
+                        <a class="scene-link" href="estoria_cena10.html">👁️ Esquinas Cruzadas</a>
+                        <a class="scene-link" href="estoria_cena11.html">👁️ Entre Muros e Jardins</a>
+                        <a class="scene-link" href="estoria_cena12.html">👁️ Morte e Apoteose</a>
+                        <a class="scene-link" href="estoria_cena14.html">👁️ Vinhedos Estorianos</a>
+                    </div>
+                </li>
+
+                <li class="subfolder-group">
+                    <span class="subfolder-title">📍 O Templo Lodoso</span>
+                    <div class="scene-list">
+                        <a class="scene-link" href="templo1.html">👁️ A Floresta Anciã</a>
+                        <a class="scene-link" href="templo2.html">👁️ Pilares Lodosos</a>
+                        <a class="scene-link" href="templo3.html">👁️ Templo Antigo</a>
+                        <a class="scene-link" href="templo4.html">👁️ Jovens</a>
+                        <a class="scene-link" href="templo5.html">👁️ Banquetes</a>
+                        <a class="scene-link" href="templo7.html">👁️ A Bela Irmã </a>
+                        <a class="scene-link" href="templo6.html">👁️ O Chifre de Balmytria</a>
+                    </div>
+                </li>
+
+                <li class="subfolder-group">
+                    <span class="subfolder-title">📍 A Forja de Mitral</span>
+                    <div class="scene-list">
+                        <a class="scene-link" href="forja1.html">👁️ Centauros</a>
+                        <a class="scene-link" href="forja2.html">👁️ Cataratas de Arkelon</a>
+                        <a class="scene-link" href="forja3.html">👁️ Moradores Distintos</a>
+                        <a class="scene-link" href="forja4.html">👁️ O Rei da Montanha</a>
+                        <a class="scene-link" href="forja8.html">👁️ Ventre da Montanha</a>
+                        <a class="scene-link" href="forja9.html">👁️ Corredores Abandonados</a>
+                        <a class="scene-link" href="forja5.html">👁️ Arapuca Anã</a>
+                        <a class="scene-link" href="forja6.html">👁️ Tanques Ígneos</a>
+                        <a class="scene-link" href="forja7.html">👁️ Heróis do Vale Perdido</a>
+                    </div>
+                </li>
+
+                <li class="subfolder-group">
+                    <span class="subfolder-title">📍 A Necrópole em Telamok (SPOILERS)</span>
+                    <div class="scene-list">
+                        <a class="scene-link" href="necro4.html">👁️ O Cortejo Fúnebre dos Lordes</a>
+                        <a class="scene-link" href="necro1.html">👁️ O Silêncio de Telamok</a>
+                        <a class="scene-link" href="necro2.html">👁️ O Eterno Enlutado</a>
+                        <a class="scene-link" href="necro3.html">👁️ Descanso dos Heróis</a>
+                        <a class="scene-link" href="necro5.html">👁️ Corredores Sem Fim</a>
+                        
+                        <!-- SUBGRUPO ANINHADO CORRIGIDO -->
+                        <div class="subfolder-group">
+                            <span class="subfolder-title">📍 Sarcófagos de Telamok</span>
+                            <div class="scene-list">
+                                <span class="scene-link">🏛️ Telamok Arkelander <img src="imagens/labyrinthian-ootdl-labyrinthian-tomb-telamok.jpg" class="hero-preview"></span>
+                                <span class="scene-link">🏛️ Adônis Neurdagon <img src="imagens/labyrinthian-ootdl-labyrinthian-tomb-adonis.jpg" class="hero-preview"></span>
+                                <span class="scene-link">🏛️ Estor Arkelander <img src="imagens/labyrinthian-ootdl-labyrinthian-tomb-estor.jpg" class="hero-preview"></span>
+                                <span class="scene-link">🏛️ Rizon Phobas <img src="imagens/labyrinthian-ootdl-labyrinthian-tomb-rizon.jpg" class="hero-preview"></span>
+                                <span class="scene-link">🏛️ Cosmo Phobas <img src="imagens/labyrinthian-ootdl-labyrinthian-tomb-cosmo.jpg" class="hero-preview"></span>
+                                <span class="scene-link">🏛️ Myrto, o Magnífico <img src="imagens/labyrinthian-ootdl-labyrinthian-tomb-myrto.jpg" class="hero-preview"></span>
+                                <span class="scene-link">🏛️ Isadora Huorath <img src="imagens/labyrinthian-ootdl-labyrinthian-tomb-isadore.jpg" class="hero-preview"></span>
+                                <span class="scene-link">🏛️ Lysis Arkelander <img src="imagens/labyrinthian-ootdl-labyrinthian-tomb-lysis.jpg" class="hero-preview"></span>
+                                <span class="scene-link">🏛️ Ochos Arkelander <img src="imagens/labyrinthian-ootdl-labyrinthian-tomb-ochos.jpg" class="hero-preview"></span>
+                                <span class="scene-link">🏛️ Dório Neurdagon <img src="imagens/labyrinthian-ootdl-labyrinthian-tomb-dorion.jpg" class="hero-preview"></span>
+                                <span class="scene-link">🏛️ Grégor Huorath <img src="imagens/labyrinthian-ootdl-labyrinthian-tomb-gregor.jpg" class="hero-preview"></span>
+                                <span class="scene-link">🏛️ Nicolau Phobas <img src="imagens/labyrinthian-ootdl-labyrinthian-tomb-nicholas.jpg" class="hero-preview"></span>
+                                <span class="scene-link">🏛️ Balmytria <img src="imagens/labyrinthian-ootdl-labyrinthian-tomb-balmytria.jpg" class="hero-preview"></span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="main-folder-wrapper">
+        <span class="main-folder-title">📜 Pela Honra de Mytros (SPOILERS)</span>
+        <div class="main-folder-content">
+            <ul>
+                <li class="subfolder-group">
+                    <span class="subfolder-title">📍 Mytros e arredores (SPOILERS)</span>
+                    <div class="scene-list">
+                        <a class="scene-link" href="Mytros_1.html">👁️ A Clareira</a>
+                        <a class="scene-link" href="Mytros_2.html">👁️ O Pouso dos Dragões</a>
+                        <a class="scene-link" href="Mytros_3.html">👁️ A Gloriosa Mytros</a>
+                        <a class="scene-link" href="Mytros_4.html">👁️ O Colosso de Pythor</a>
+                        <a class="scene-link" href="Mytros_5.html">👁️ A Travessa Estigiana</a>
+                        <a class="scene-link" href="Mytros_6.html">👁️ O Porto de Mytros</a>
+                        <a class="scene-link" href="Mytros_7.html">👁️ O Distrito Nobre</a>
+                        <a class="scene-link" href="Mytros_8.html">👁️ O Distrito dos Templos</a>
+                        <a class="scene-link" href="Mytros_9.html">👁️ O Grande Palácio</a>
+                        <a class="scene-link" href="Mytros_10.html">👁️ A Academia dos Sábios</a>
+                    </div>
+                </li>
+
+                <li class="subfolder-group">
+                    <span class="subfolder-title">📍 Os Grandes Jogos (SPOILERS)</span>
+                    <div class="scene-list">
+                        <a class="scene-link" href="jogos_1.html">👁️ O Monte Volkan</a>
+                        <a class="scene-link" href="jogos_2.html">👁️ O Banquete de Acastus</a>
+                        <a class="scene-link" href="jogos_3.html">👁️ Os Atletas</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="main-folder-wrapper">
+        <span class="main-folder-title">📜 Juramentos e Cantos</span>
+        <div class="main-folder-content">
+            <ul>
+                <li class="subfolder-group">
+                    <span class="subfolder-title">⚖️ Lista de Juramentos, Cantos e Sonhos</span>
+                    <div class="scene-list">
+                        <a class="scene-link" href="juramento.html">⚖️ Juramento da Paz</a>
+                        <a class="scene-link" href="edito.html">📜 Édito de Sydon</a>
+                        <a class="scene-link" href="https://suno.com/song/24c26e4e-e423-48d7-8764-0b925196eeb7" target="_blank">🎵 A Balada do Navio Negro</a>
+                        <a class="scene-link" href="https://suno.com/song/c0eb1194-8c26-4ac5-a6fc-c9e84500c0a3" target="_blank">🎵 O Voto do Sacrifício</a>
+                        <a class="scene-link" href="pesadelo1.html">💤 Sonhos Lúcidos - A primeira visita</a>
+                        <a class="scene-link" href="pesadelo2.html">💤 Sonhos Lúcidos - Desunião</a>
+                        <a class="scene-link" href="pesadelo3.html">💤 Sonhos Lúcidos - Próximos a primeira verdade</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
 </div>
 
 <script>
-    // Função para abrir/fechar as pastas ao clicar
-    document.querySelectorAll('.subfolder-title').forEach(title => {
+    // 1. Função para abrir/fechar as PASTAS PRINCIPAIS ao clicar
+    document.querySelectorAll('.main-folder-title').forEach(title => {
         title.addEventListener('click', () => {
-            const group = title.parentElement;
-            
-            // Fecha outros grupos se quiser que apenas um fique aberto por vez (Opcional)
-            // document.querySelectorAll('.subfolder-group').forEach(other => {
-            //    if(other !== group) other.classList.remove('active');
-            // });
+            const wrapper = title.parentElement;
+            wrapper.classList.toggle('active');
+        });
+    });
 
+    // 2. CORREÇÃO DO CLIQUE: Captura todas as subpastas, inclusive as aninhadas
+    document.querySelectorAll('.subfolder-title').forEach(title => {
+        title.addEventListener('click', (e) => {
+            e.stopPropagation(); // Impede o clique de subir para os elementos pais
+            const group = title.parentElement;
             group.classList.toggle('active');
         });
     });
