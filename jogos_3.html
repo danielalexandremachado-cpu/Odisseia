@@ -2,17 +2,18 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Cena - A Clareira</title>
+    <title>Cena - Os Atletas</title>
     <style>
         body { margin: 0; background: black; overflow: hidden; font-family: 'Georgia', serif; }
         
-        .bg-image {
-            width: 100vw; height: 100vh;
-            background-image: url("imagens/Clareira.png");
-            background-size: contain;
-            background-position: center;
-            background-repeat: no-repeat;
+        /* Estilização do Vídeo de Fundo */
+        .bg-video {
+            width: 100vw; 
+            height: 100vh;
+            object-fit: contain; /* Mantém a proporção do vídeo centralizado */
             position: absolute;
+            top: 0;
+            left: 0;
             z-index: 1;
         }
 
@@ -52,27 +53,6 @@
             background: #c5a059;
             color: #1a1a1a;
         }
-
-        /* Barra de Controle de Áudio Customizada */
-        .audio-player-container {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 15;
-            background: rgba(26, 26, 26, 0.9);
-            padding: 10px 20px;
-            border-radius: 50px;
-            border: 1px solid #c5a059;
-            display: none;
-            align-items: center;
-            box-shadow: 0 0 15px rgba(0,0,0,0.8);
-        }
-
-        audio {
-            height: 30px;
-            filter: sepia(100%) hue-rotate(10deg) saturate(200%) brightness(80%);
-        }
     </style>
 </head>
 <body>
@@ -83,38 +63,28 @@
         <button class="btn-iniciar" onclick="iniciarCena()">🗡️ Presenças aterradoras</button>
     </div>
 
-    <div class="bg-image"></div>
-
-    <div class="audio-player-container" id="controls">
-        <audio id="musicaLocal" controls loop>
-            <source src="sons/clareira.mp3" type="audio/mpeg">
-            Seu navegador não suporta áudio.
-        </audio>
-    </div>
+    <!-- Elemento Vídeo (com áudio habilitado) -->
+    <video id="bgVideo" class="bg-video" loop playsinline>
+        <source src="imagens/delegacao.mp4" type="video/mp4">
+        Seu navegador não suporta o formato de vídeo.
+    </video>
 
     <script>
-        const audio = document.getElementById('musicaLocal');
+        const video = document.getElementById('bgVideo');
 
         function iniciarCena() {
             const screen = document.getElementById('play-screen');
-            const controls = document.getElementById('controls');
             
-            // Inicia o áudio local (floresta.mp3)
-            audio.play().catch(e => console.log("Erro ao tocar:", e));
+            // Garante que o som do vídeo está ativo e inicia a reprodução
+            video.muted = false;
+            video.play().catch(e => console.log("Erro ao tocar vídeo:", e));
             
-            // Mostra os controles e remove a tela de início
-            controls.style.display = 'flex';
+            // Remove a tela de início
             screen.style.opacity = '0';
             setTimeout(() => {
                 screen.style.display = 'none';
             }, 500);
         }
-
-        // Loop Infinito Reforçado via Script
-        audio.addEventListener('ended', function() {
-            this.currentTime = 0;
-            this.play();
-        }, false);
     </script>
 </body>
 </html>
