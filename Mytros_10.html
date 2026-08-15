@@ -2,12 +2,19 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cena - A Academia dos Sábios</title>
     <style>
-        body { margin: 0; background: black; overflow: hidden; font-family: 'Georgia', serif; }
+        body { 
+            margin: 0; 
+            background: black; 
+            overflow: hidden; 
+            font-family: 'Georgia', serif; 
+        }
         
         .bg-image {
-            width: 100vw; height: 100vh;
+            width: 100%; 
+            height: 100vh;
             background-image: url("imagens/sapiens.png");
             background-size: contain;
             background-position: center;
@@ -17,17 +24,24 @@
         }
 
         .back-btn {
-            position: absolute; top: 20px; left: 20px;
-            color: white; text-decoration: none; background: rgba(0,0,0,0.5);
-            padding: 10px; border-radius: 5px;
+            position: absolute; 
+            top: 20px; 
+            left: 20px;
+            color: white; 
+            text-decoration: none; 
+            background: rgba(0,0,0,0.5);
+            padding: 10px; 
+            border-radius: 5px;
             z-index: 10;
         }
 
         /* Tela de Início */
         #play-screen {
             position: absolute;
-            top: 0; left: 0;
-            width: 100vw; height: 100vh;
+            top: 0; 
+            left: 0;
+            width: 100%; 
+            height: 100vh;
             background: rgba(0,0,0,0.85);
             display: flex;
             justify-content: center;
@@ -99,22 +113,16 @@
             const screen = document.getElementById('play-screen');
             const controls = document.getElementById('controls');
             
-            // Inicia o áudio local (floresta.mp3)
+            // Inicia o áudio da Academia dos Sábios
             audio.play().catch(e => console.log("Erro ao tocar:", e));
             
-            // Mostra os controles e remove a tela de início
+            // Exibe os controles e esconde a tela inicial com transição
             controls.style.display = 'flex';
             screen.style.opacity = '0';
             setTimeout(() => {
                 screen.style.display = 'none';
             }, 500);
         }
-
-        // Loop Infinito Reforçado via Script
-        audio.addEventListener('ended', function() {
-            this.currentTime = 0;
-            this.play();
-        }, false);
     </script>
 </body>
 </html>

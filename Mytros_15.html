@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cena - O Fosso</title>
+    <title>Cena - Luxúria em Mytros</title>
     <style>
         body { 
             margin: 0; 
@@ -15,7 +15,7 @@
         .bg-image {
             width: 100%; 
             height: 100vh;
-            background-image: url("imagens/fosso.png");
+            background-image: url("imagens/luxm.jpg");
             background-size: contain;
             background-position: center;
             background-repeat: no-repeat;
@@ -94,14 +94,14 @@
     <a href="Odisseia.html" class="back-btn">⬅ Voltar</a>
     
     <div id="play-screen">
-        <button class="btn-iniciar" onclick="iniciarCena()">🗡️ Decolagem autorizada</button>
+        <button class="btn-iniciar" onclick="iniciarCena()">👩🏻‍🎤 Prazeres temporários...</button>
     </div>
 
     <div class="bg-image"></div>
 
     <div class="audio-player-container" id="controls">
         <audio id="musicaLocal" controls loop>
-            <source src="sons/clareira.mp3" type="audio/mpeg">
+            <source src="sons/luxuria.m4a" type="audio/mp4">
             Seu navegador não suporta áudio.
         </audio>
     </div>
@@ -113,7 +113,7 @@
             const screen = document.getElementById('play-screen');
             const controls = document.getElementById('controls');
             
-            // Inicia o áudio
+            // Inicia o áudio ambiente
             audio.play().catch(e => console.log("Erro ao tocar:", e));
             
             // Exibe os controles e esconde a tela inicial com transição
