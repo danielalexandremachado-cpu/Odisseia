@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cena - Artesãos do Metal </title>
+    <style>
+        body { 
+            margin: 0; 
+            background: black; 
+            overflow: hidden; 
+            font-family: 'Georgia', serif; 
+            color: #e0d9c1;
+        }
+        
+        /* Imagem de Fundo */
+        .bg-image {
+            width: 100vw; 
+            height: 100vh;
+            background-image: url("imagens/tanque2.jpeg");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            filter: brightness(0.6);
+        }
+
+        /* Botão Voltar */
+        .back-btn {
+            position: absolute; 
+            top: 20px; 
+            left: 20px;
+            color: white; 
+            text-decoration: none; 
+            background: rgba(0,0,0,0.7);
+            padding: 10px 15px; 
+            border-radius: 5px;
+            border: 1px solid #c5a059;
+            z-index: 10;
+            transition: 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #c5a059;
+            color: black;
+        }
+
+        /* Contêiner das Tabelas de Receitas */
+        .main-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 950px;
+            max-height: 75vh;
+            background: rgba(20, 20, 20, 0.9);
+            border: 2px solid #c5a059;
+            border-radius: 12px;
+            padding: 15px 25px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.9);
+            z-index: 5;
+            overflow-y: auto;
+            transition: all 0.3s ease;
+        }
+
+        /* Espaçamento entre múltiplos elementos details */
+        details + details {
+            margin-top: 20px;
+        }
+
+        /* Estilização do Menu Retrátil (<details>) */
+        details summary {
+            color: #c5a059;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-align: center;
+            font-size: 1.4em;
+            font-weight: bold;
+            cursor: pointer;
+            list-style: none;
+            padding: 10px 0;
+            user-select: none;
+            transition: color 0.3s ease;
+        }
+
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+
+        details summary:hover {
+            color: #fff;
+        }
+
+        /* Ícone indicativo de abrir/fechar */
+        details summary::after {
+            content: ' ▼';
+            font-size: 0.75em;
+            display: inline-block;
+            transition: transform 0.3s ease;
+            margin-left: 8px;
+        }
+
+        details[open] summary::after {
+            transform: rotate(180deg);
+        }
+
+        details[open] summary {
+            border-bottom: 2px double #c5a059;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.95em;
+        }
+
+        th {
+            color: #c5a059;
+            padding: 12px 10px;
+            border-bottom: 2px solid #c5a059;
+            font-weight: bold;
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        td {
+            padding: 10px;
+            border-bottom: 1px solid rgba(197, 160, 89, 0.2);
+            color: #d1c7b7;
+        }
+
+        tr:nth-child(even) {
+            background-color: rgba(197, 160, 89, 0.05);
+        }
+
+        tr:hover {
+            background-color: rgba(197, 160, 89, 0.2);
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .empty-cell {
+            text-align: center;
+            color: #666;
+        }
+
+        /* Tela de Início */
+        #play-screen {
+            position: absolute;
+            top: 0; 
+            left: 0;
+            width: 100vw; 
+            height: 100vh;
+            background: rgba(0,0,0,0.88);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 20;
+            transition: opacity 0.5s ease;
+        }
+
+        .btn-iniciar {
+            padding: 20px 40px;
+            font-size: 1.5em;
+            color: #c5a059;
+            background: #1a1a1a;
+            border: 2px solid #c5a059;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(197, 160, 89, 0.5);
+            transition: 0.3s;
+        }
+
+        .btn-iniciar:hover {
+            background: #c5a059;
+            color: #1a1a1a;
+        }
+
+        /* Barra de Controle de Áudio Customizada */
+        .audio-player-container {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 15;
+            background: rgba(26, 26, 26, 0.95);
+            padding: 8px 18px;
+            border-radius: 50px;
+            border: 1px solid #c5a059;
+            display: none;
+            align-items: center;
+            box-shadow: 0 0 15px rgba(0,0,0,0.8);
+        }
+
+        audio {
+            height: 30px;
+            filter: sepia(100%) hue-rotate(10deg) saturate(200%) brightness(80%);
+        }
+
+        /* Custom Scrollbar */
+        .main-content::-webkit-scrollbar {
+            width: 8px;
+        }
+        .main-content::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.3);
+        }
+        .main-content::-webkit-scrollbar-thumb {
+            background: #c5a059;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <a href="Odisseia.html" class="back-btn">⬅ Voltar</a>
+    
+    <!-- Tela Inicial de Interação -->
+    <div id="play-screen">
+        <button class="btn-iniciar" onclick="iniciarCena()">⛓️ Criando maravilhas... </button>
+    </div>
+
+    <!-- Imagem de Fundo da Cena -->
+    <div class="bg-image"></div>
+
+    <!-- Conteúdo Principal com Tabelas Minimizáveis -->
+    <main class="main-content">
+        <!-- Tabela 1: Receitas -->
+        <details>
+            <summary>Receitas para a Forja de Mitral</summary>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Item Criado</th>
+                            <th class="text-center">Dias</th>
+                            <th class="text-center">Custo (PO)</th>
+                            <th>Ingrediente(s) Primário(s)</th>
+                            <th>Ingrediente(s) Secundário(s)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Amuleto da Saúde</td>
+                            <td class="text-center">5</td>
+                            <td class="text-center">200</td>
+                            <td class="empty-cell">—</td>
+                            <td class="empty-cell">—</td>
+                        </tr>
+                        <tr>
+                            <td>Botas de Levitação</td>
+                            <td class="text-center">5</td>
+                            <td class="text-center">200</td>
+                            <td>velo de ouro</td>
+                            <td class="empty-cell">—</td>
+                        </tr>
+                        <tr>
+                            <td>Lórica de Escamas Dracônicas</td>
+                            <td class="text-center">10</td>
+                            <td class="text-center">200</td>
+                            <td>escamas de dragão</td>
+                            <td class="empty-cell">—</td>
+                        </tr>
+                        <tr>
+                            <td>Pomo de Ouro</td>
+                            <td class="text-center">5</td>
+                            <td class="text-center">1.000</td>
+                            <td>maçã eterna</td>
+                            <td class="empty-cell">—</td>
+                        </tr>
+                        <tr>
+                            <td>Alaúde de Zefir</td>
+                            <td class="text-center">1</td>
+                            <td class="text-center">50</td>
+                            <td>fio de cabelo de ninfa</td>
+                            <td class="empty-cell">—</td>
+                        </tr>
+                        <tr>
+                            <td>Lira de Euros</td>
+                            <td class="text-center">2</td>
+                            <td class="text-center">100</td>
+                            <td>fio de cabelo de ninfa</td>
+                            <td class="empty-cell">—</td>
+                        </tr>
+                        <tr>
+                            <td>Harpa Boreal</td>
+                            <td class="text-center">4</td>
+                            <td class="text-center">200</td>
+                            <td>fio de cabelo de ninfa x2</td>
+                            <td class="empty-cell">—</td>
+                        </tr>
+                        <tr>
+                            <td>Cítara de Notos</td>
+                            <td class="text-center">6</td>
+                            <td class="text-center">500</td>
+                            <td>fio de cabelo de ninfa x2</td>
+                            <td>orbe de metal estelar</td>
+                        </tr>
+                        <tr>
+                            <td>Azagaia de Relâmpago</td>
+                            <td class="text-center">1</td>
+                            <td class="text-center">100</td>
+                            <td>orbe de metal estelar</td>
+                            <td class="empty-cell">—</td>
+                        </tr>
+                        <tr>
+                            <td>Corrente de Mitral</td>
+                            <td class="text-center">5</td>
+                            <td class="text-center">50</td>
+                            <td>lingote de mitral</td>
+                            <td class="empty-cell">—</td>
+                        </tr>
+                        <tr>
+                            <td>Arma de Mitral +1</td>
+                            <td class="text-center">5</td>
+                            <td class="text-center">200</td>
+                            <td>lingote de mitral</td>
+                            <td class="empty-cell">—</td>
+                        </tr>
+                        <tr>
+                            <td>Arreio de Pégaso</td>
+                            <td class="text-center">1</td>
+                            <td class="text-center">1.000</td>
+                            <td>gemas preciosas (2.000 PO)</td>
+                            <td class="empty-cell">—</td>
+                        </tr>
+                        <tr>
+                            <td>Cajado da Cura</td>
+                            <td class="text-center">5</td>
+                            <td class="text-center">200</td>
+                            <td>cabeça de cabra de uma quimera</td>
+                            <td>sangue de gárgon</td>
+                        </tr>
+                        <tr>
+                            <td>Tridente de Comandar Peixes</td>
+                            <td class="text-center">5</td>
+                            <td class="text-center">200</td>
+                            <td>lingote de adamantino</td>
+                            <td>sangue de gárgon</td>
+                        </tr>
+                        <tr>
+                            <td>Botas Aladas</td>
+                            <td class="text-center">5</td>
+                            <td class="text-center">50</td>
+                            <td>velo de ouro</td>
+                            <td class="empty-cell">—</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </details>
+
+        <!-- Tabela 2: Criando Itens com a Forja -->
+        <details>
+            <summary>Criando Itens com a Forja de Mitral</summary>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Modificador de Criação de Itens</th>
+                            <th class="text-right">Velocidade de Criação de Itens</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Velocidade Base</td>
+                            <td class="text-right">25 PO/dia</td>
+                        </tr>
+                        <tr>
+                            <td>Forja de Mitral</td>
+                            <td class="text-right">+75 PO/dia</td>
+                        </tr>
+                        <tr>
+                            <td>Volkan ajudando</td>
+                            <td class="text-right">+50 PO/dia</td>
+                        </tr>
+                        <tr>
+                            <td>Steros ajudando</td>
+                            <td class="text-right">+50 PO/dia</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </details>
+
+        <!-- Tabela 3: Criando itens mágicos no XGtE -->
+        <details>
+            <summary>Criando itens mágicos no XGtE</summary>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Raridade do Item</th>
+                            <th class="text-center">Semanas de trabalho*</th>
+                            <th class="text-right">Custo**</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Comum</td>
+                            <td class="text-center">1</td>
+                            <td class="text-right">50 po</td>
+                        </tr>
+                        <tr>
+                            <td>Incomum</td>
+                            <td class="text-center">2</td>
+                            <td class="text-right">200 po</td>
+                        </tr>
+                        <tr>
+                            <td>Raro</td>
+                            <td class="text-center">10</td>
+                            <td class="text-right">2.000 po</td>
+                        </tr>
+                        <tr>
+                            <td>Muito Raro</td>
+                            <td class="text-center">25</td>
+                            <td class="text-right">20.000 po</td>
+                        </tr>
+                        <tr>
+                            <td>Lendário</td>
+                            <td class="text-center">50</td>
+                            <td class="text-right">100.000 po</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </details>
+    </main>
+
+    <!-- Player de Áudio -->
+    <div class="audio-player-container" id="controls">
+        <audio id="musicaLocal" controls loop>
+            <source src="sons/Forja Queimador.mp3" type="audio/mpeg">
+            Seu navegador não suporta áudio.
+        </audio>
+    </div>
+
+    <script>
+        const audio = document.getElementById('musicaLocal');
+
+        function iniciarCena() {
+            const screen = document.getElementById('play-screen');
+            const controls = document.getElementById('controls');
+            
+            // Inicia áudio local
+            audio.play().catch(e => console.log("Erro ao tocar:", e));
+            
+            // Exibe o player de áudio e descarta a tela de início
+            controls.style.display = 'flex';
+            screen.style.opacity = '0';
+            setTimeout(() => {
+                screen.style.display = 'none';
+            }, 500);
+        }
+
+        // Loop Infinito do áudio
+        audio.addEventListener('ended', function() {
+            this.currentTime = 0;
+            this.play();
+        }, false);
+    </script>
+</body>
+</html>
